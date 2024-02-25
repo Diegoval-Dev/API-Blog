@@ -1,14 +1,17 @@
 # Usa la imagen oficial de Node.js como imagen base
 FROM node:21.6.2
 
+
 # Establece el directorio de trabajo en el contenedor
-WORKDIR /Blog
+WORKDIR /app
 
 # Copia los archivos de definición de paquetes para la caché de capas
-COPY package.json .
+COPY package*.json .
+
 
 # Instala las dependencias de la aplicación
-RUN npm install
+RUN npm install 
+
 
 # Copia los archivos y directorios restantes al directorio de trabajo
 COPY . .
