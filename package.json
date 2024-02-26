@@ -2,10 +2,10 @@
   "name": "blog",
   "version": "1.0.0",
   "description": "Ah fullstack blog",
-  "main": "main.js",
+  "main": "./src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js"
+    "start": "node ./src/main.js"
   },
   "author": "Diego Valenzuela",
   "license": "MIT",
