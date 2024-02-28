@@ -24,22 +24,24 @@ app.use(express.json());
 
 // GET /posts
 app.get('/posts', async (req, res) => {
-    console.log(getAllPosts())
     try {
         const posts = await getAllPosts();
-        res.json(posts);
+        res.status(200).json(posts);
     } catch (error) {
         console.error('Error fetching posts:', error);
         res.status(500).send('An error occurred while fetching posts');
     }
 });
 
-// GET /posts/:id
+// POST /posts
 app.post('/posts', async (req, res) => {
+    const { title, content, banner_image_url, category } = req.body;
+    if (!title || !content || !banner_image_url || !category) {
+        return res.status(400).send("Missing or malformed data on the bodysuit");
+    }
     try {
-        const { title, content, banner_image_url, category } = req.body;
         const result = await createPost(title, content, banner_image_url, category);
-        res.status(201).json(result);
+        res.status(200).json(result);
     } catch (error) {
         console.error('Error creating post:', error);
         res.status(500).send('An error occurred while creating the post');
@@ -51,7 +53,7 @@ app.get('/posts/:postId', async (req, res) => {
     try {
         const { postId } = req.params;
         const post = await getPostById(postId);
-        if (post) {
+        if (post.length > 0) {
             res.json(post);
         } else {
             res.status(404).send('Post not found');
@@ -64,11 +66,20 @@ app.get('/posts/:postId', async (req, res) => {
 
 // PUT /posts/:id
 app.put('/posts/:postId', async (req, res) => {
+    const { postId } = req.params;
+    const { title, content, banner_image_url, category } = req.body;
+
+    if (!title || !content || !banner_image_url || !category) {
+        return res.status(400).send("Missing or malformed data in the body");
+    }
+
     try {
-        const { postId } = req.params;
-        const { title, content, banner_image_url, category } = req.body;
         const result = await updatePostById(postId, title, content, banner_image_url, category);
-        res.json(result);
+        if (result.affectedRows === 0) {
+            return res.status(404).send("Post not found");
+        }
+        const updatedPost = await getPostById(postId);
+        res.status(200).json(updatedPost[0]);
     } catch (error) {
         console.error('Error updating post:', error);
         res.status(500).send('An error occurred while updating the post');
@@ -81,7 +92,7 @@ app.delete('/posts/:postId', async (req, res) => {
         const { postId } = req.params;
         const result = await deletePostById(postId);
         if (result.affectedRows > 0) {
-            res.send('Post deleted successfully');
+            res.status(204).send();
         } else {
             res.status(404).send('Post not found');
         }
@@ -91,10 +102,13 @@ app.delete('/posts/:postId', async (req, res) => {
     }
 });
 
+app.use((req, res, next) => {
+    res.status(404).send("404 Not Found");
+});
 
-
-app.use((req, res) => {
-    res.status(404).send('404 Not Found');
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Server error!');
 });
 
 app.listen(port, () => {
