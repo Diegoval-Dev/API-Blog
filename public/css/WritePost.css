@@ -1,0 +1,68 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--rich-black);
+}
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10%;
+    background-color: var(--rich-black);
+}
+main h2{
+    align-self: flex-start;
+    color: var(--white);
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+#form-write-post{
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10%;
+    background-color: var(--rich-black);
+}
+.input-post{
+    padding: 5px;
+    border-radius: 7px;
+    border: none;
+    background-color: var(--butterscotch);
+    color: var(--black-bean);
+    margin: 10px;
+}
+.input-post:hover{
+    background-color: var(--rosy-brown);
+}
+.input-post::placeholder{
+    color: var(--black-bean);
+}
+.input-post:focus{
+    outline: none;
+}
+#input-content{
+    min-width: 500px;
+    min-height: 200px;
+    resize: none;
+}
+#btn-write-post{
+    width: 200px;
+    padding: 5px 10px;
+    border-radius: 7px;
+    background-color: var(--dark-green);
+    color: var(--white);
+    font-weight: 500;
+    cursor: pointer;
+}
+#btn-write-post:hover{
+    background-color: var(--rosy-brown);
+}

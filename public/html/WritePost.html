@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/WritePost.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <title>Write Post</title>
+</head>
+<body>
+    <header>
+        <h1>El Blog de Diego</h1>
+        <nav>
+            <ul>
+                <li>
+                    <form id="form-search-post">
+                        <input type="text" name="search" id="input-id-post" placeholder="Buscar post por ID" autocomplete="off">
+                        <button type="submit" id="btn-search-post">Buscar</button>
+                    </form>
+                </li>
+                <li><a href="../index.html">Posts</a></li>
+                <li><a href="">Escribe un post</a></li>
+            </ul>
+    </header>
+    <main>
+        <h2>Escribe tu post!</h2>
+        <form id="form-write-post">
+            <input class="input-post" type="text" name="title" id="input-title" placeholder="Título del post" autocomplete="off">
+            <input class="input-post" type="text" name="author" id="input-author" placeholder="Autor del post" autocomplete="off">
+            <input class="input-post" type="text" name="category" id="input-category" placeholder="Categoría del post" autocomplete="off">
+            <textarea class="input-post" name="content" id="input-content" placeholder="Contenido del post" autocomplete="off"></textarea>
+            <button type="submit" id="btn-write-post">Publicar</button>
+        </form>
+    </main>
+    <footer>
+        <p>Diego's Blog &copy; 2024</p>
+    </footer>
+</body>
+</html>
