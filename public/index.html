@@ -8,24 +8,38 @@
 </head>
 <body>
     <header>
-        <h1>El blog de Diego</h1>
+        <h1>El Blog de Diego</h1>
         <nav>
             <ul>
+                <li>
+                    <form id="form-search-post">
+                        <input type="text" name="search" id="input-id-post" placeholder="Buscar post por ID" autocomplete="off">
+                        <button type="submit" id="btn-search-post">Buscar</button>
+                    </form>
+                </li>
                 <li><a href="/posts">Posts</a></li>
-                <li><a href="/about">Write a Post</a></li>
+                <li><a href="/about">Escribe un post</a></li>
             </ul>
     </header>
     <main>
         <h2>Posts</h2>
-        <article>
-            <h3>Post 1</h3>
-            <h4>autor</h4>
-            <p>Este es el contenido del post 1</p>
+        <article class="post-container">
+            <h3 class="post-title">1. Post 1</h3>
+            <img src="https://pbs.twimg.com/media/EVCzgrwWoAEtvJf?format=jpg&name=small" alt="" class="post-img">
+            <h4 class="post-author">autor</h4>
+            <p class="post-category">1</p>
+            <p class="post-content">Este es el contenido del post 1</p>
+            <div class="post-actions">
+                <button class="btn-edit-post">Editar</button>
+                <button class="btn-delete-post">Eliminar</button>
+            </div>
         </article>
-        <article>
-            <h3>Post 2</h3>
-            <h4>autor</h4>
-            <p>Este es el contenido del post 2</p>
+        <article class="post-container">
+            <h3 class="post-title">1. Post 1</h3>
+            <img src="" alt="" class="post-img">
+            <h4 class="post-author">autor</h4>
+            <p class="post-category">1</p>
+            <p class="post-content">Este es el contenido del post 1</p>
         </article>
     </main>
 </body>
