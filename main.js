@@ -2,6 +2,9 @@ import express, { response } from 'express';
 import { getAllPosts, createPost, getPostById, updatePostById, deletePostById } from './database/db.js';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+const logDetails = require('./middlewares/loggingMiddleware');
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,6 +13,8 @@ const app = express();
 const port = 3000;
 
 app.use(express.static(join(__dirname, 'public')));
+app.use(logDetails);
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public', 'index.html'), (err) => {
