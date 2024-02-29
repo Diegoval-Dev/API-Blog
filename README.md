@@ -19,3 +19,26 @@ Para instalar y ejecutar el blog de fitness en tu entorno local, sigue estos pas
 git clone https://github.com/tu-usuario/blog-fitness.git
 cd blog-fitness 
 ```
+2. Cambia el nombre del archivo docker-compose-copy.yml a docker-compose.yml:
+```bash
+mv docker-compose-copy.yml docker-compose.yml
+```
+3. Crea y monta los contenedores Docker:
+```bash
+docker-compose up --build
+```
+Una vez completado, el blog debería estar corriendo y accesible en http://localhost:3000 (ajusta el puerto según tu configuración si es necesario).
+
+## Uso
+Para empezar a usar el blog, simplemente navega a http://localhost:3000 en tu navegador. Desde allí, podrás explorar los posts existentes, así como crear nuevos posts si estás autenticado como un usuario administrador.
+
+## Construido con
+
+- [Node.js](https://nodejs.org/) - Entorno de ejecución para JavaScript
+- [Express](https://expressjs.com/) - Framework de aplicación web
+- [Docker](https://www.docker.com/) - Plataforma de contenedores
+
+## Autores
+
+- **Tu Nombre** - *Trabajo Inicial* - [Diegoval-Dev](https://github.com/Diegoval-Dev)
+
