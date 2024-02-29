@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     async function loadPosts() {
         try {
             const response = await fetch('http://127.0.0.1:3000/posts'); 
-            const posts = await response.json();
-            
+            let posts = await response.json();
+
+            posts = posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
             console.log(posts);
 
             while (postsContainer.children.length > 1) {
@@ -15,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
             posts.forEach(post => {
                 const postElement = document.createElement('article');
                 postElement.classList.add('post-container');
-
 
                 postElement.innerHTML = `
                     <h3 class="post-title"><span class="post-id">${post.id}</span>. ${post.title}</h3>
@@ -37,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     loadPosts();
-
 });
 
 
