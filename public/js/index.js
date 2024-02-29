@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="post-content">${post.content}</p>
                     <div class="post-actions">
                         <button class="btn-edit-post" onclick="location.href='../html/EditPost.html?postId=${post.id}'">Editar</button>
-                        <button class="btn-delete-post">Eliminar</button>
+                        <button class="btn-delete-post" data-post-id="${post.id}" >Eliminar</button>
                     </div>
                 `;
 
@@ -73,6 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    postsContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-delete-post')) {
+            const postId = e.target.getAttribute('data-post-id');
+            deletePost(postId);
+        }
+    });
+
 });
 
 function displayPost(post) {
@@ -90,12 +97,30 @@ function displayPost(post) {
         <p class="post-category">${post.category}</p>
         <p class="post-content">${post.content}</p>
         <div class="post-actions">
-            <button class="btn-edit-post">Editar</button>
-            <button class="btn-delete-post">Eliminar</button>
+            <button class="btn-edit-post" onclick="location.href='../html/EditPost.html?postId=${post.id}'">Editar</button>
+            <button class="btn-delete-post" data-post-id="${post.id}" >Eliminar</button>
         </div>
     `;
 
     postsContainer.appendChild(postElement);
+}
+
+async function deletePost(postId) {
+    try {
+        const response = await fetch(`http://127.0.0.1:3000/posts/${postId}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            alert('Post eliminado exitosamente.');
+            location.reload(); 
+        } else {
+            throw new Error('El post no pudo ser eliminado.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al eliminar el post. Por favor, inténtalo de nuevo.');
+    }
 }
 
 
