@@ -1,5 +1,5 @@
 import express, { response } from 'express';
-import { getAllPosts, createPost, getPostById, updatePostById, deletePostById } from '../database/db.js';
+import { getAllPosts, createPost, getPostById, updatePostById, deletePostById } from './database/db.js';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 

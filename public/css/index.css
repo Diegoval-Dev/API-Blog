@@ -43,6 +43,12 @@ main h2{
     font-weight: 600;
     margin-bottom: 10px;
 }
+.post-date{
+    color: var(--rosy-brown);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
 .post-img{
     width: auto;
     height: 200px;

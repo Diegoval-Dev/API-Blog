@@ -3,7 +3,7 @@ FROM node:21.6.2
 
 
 # Establece el directorio de trabajo en el contenedor
-WORKDIR /user/src/app
+WORKDIR /blog
 
 # Copia los archivos de definición de paquetes para la caché de capas
 COPY package.json ./
