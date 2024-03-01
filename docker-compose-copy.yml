@@ -4,7 +4,7 @@ services:
     container_name: blog_app
     build: ./
     ports:
-      - "3000:3000"
+      - "22309:3000"
     depends_on:
       - mysql
     volumes:

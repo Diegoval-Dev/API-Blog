@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
       })
 
       if (response.ok) {
-        alert('Post creado exitosamente')
         form.reset()
         window.location.href = '/'
       } else {
@@ -31,8 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(errorText)
       }
     } catch (error) {
-      console.error('Error creando el post:', error)
-      alert('Error creando el post. Por favor, inténtalo de nuevo.')
+      console.error('Error writing post:', error)
     }
   })
 })

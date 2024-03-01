@@ -1,8 +1,3 @@
-import { express } from 'express'
-import {
-  getAllPosts, createPost, getPostById, updatePostById, deletePostById,
-} from './database/db.js'
-
 document.addEventListener('DOMContentLoaded', () => {
   const postsContainer = document.getElementById('post-list')
   const formSearchPost = document.getElementById('form-search-post')
@@ -59,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         postsContainer.appendChild(postElement)
       })
     } catch (error) {
-      error
+      console.error('Error fetching posts:', error)
+      alert('Error al cargar los posts. Por favor, inténtalo de nuevo.')
     }
   }
 
@@ -78,9 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(`http://127.0.0.1:3000/posts/${postId}`)
       if (!response.ok) {
         if (response.status === 404) {
-        } else {
-          throw new Error('Error en la búsqueda del post.')
+          alert('Post no encontrado.')
+          return
         }
+        throw new Error('Error en la búsqueda del post.')
       }
 
       const posts = await response.json()
