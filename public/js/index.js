@@ -3,59 +3,57 @@ document.addEventListener('DOMContentLoaded', () => {
   const formSearchPost = document.getElementById('form-search-post')
   const inputIdPost = document.getElementById('input-id-post')
 
-  function displayPost(post) {
+  const displayPost = (post) => {
     postsContainer.innerHTML = ''
 
     const postElement = document.createElement('article')
     postElement.classList.add('post-container')
 
     postElement.innerHTML = `
-          <h3 class="post-title"><span class="post-id">${post.id}</span>. ${post.title}</h3>
-          <p class="post-date">${post.created_at}</p> <!-- Asegúrate de ajustar según la estructura de tu post -->
-          <img src="${post.banner_image_url}" alt="" class="post-img">
-          <p class="post-category">${post.category}</p>
-          <p class="post-content">${post.content}</p>
-          <div class="post-actions">
-              <button class="btn-edit-post" onclick="location.href='../html/EditPost.html?postId=${post.id}'">Editar</button>
-              <button class="btn-delete-post" data-post-id="${post.id}" >Eliminar</button>
-          </div>
-      `
+      <h3 class="post-title"><span class="post-id">${post.id}</span>. ${post.title}</h3>
+      <p class="post-date">${post.created_at}</p>
+      <img src="${post.banner_image_url}" alt="Post image" class="post-img">
+      <p class="post-category">${post.category}</p>
+      <p class="post-content">${post.content}</p>
+      <div class="post-actions">
+        <button class="btn-edit-post" onclick="location.href='../html/EditPost.html?postId=${post.id}'">Editar</button>
+        <button class="btn-delete-post" data-post-id="${post.id}">Eliminar</button>
+      </div>
+    `
 
     postsContainer.appendChild(postElement)
   }
 
-  async function loadPosts() {
+  const loadPosts = async () => {
     try {
       const response = await fetch('https://22309.arpanetos.lol/posts')
       let posts = await response.json()
 
       posts = posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
 
-      while (postsContainer.children.length > 1) {
-        postsContainer.removeChild(postsContainer.lastChild)
-      }
+      postsContainer.innerHTML = ''
 
-      posts.forEach((post) => {
-        const postElement = document.createElement('article')
-        postElement.classList.add('post-container')
-
-        postElement.innerHTML = `
-                        <h3 class="post-title"><span class="post-id">${post.id}</span>. ${post.title}</h3>
-                        <p class="post-date">${new Date(post.created_at)}</p>
-                        <img src="${post.banner_image_url}" alt="" class="post-img">
-                        <p class="post-category">${post.category}</p>
-                        <p class="post-content">${post.content}</p>
-                        <div class="post-actions">
-                            <button class="btn-edit-post" onclick="location.href='../html/EditPost.html?postId=${post.id}'">Editar</button>
-                            <button class="btn-delete-post" data-post-id="${post.id}" >Eliminar</button>
-                        </div>
-                    `
-
-        postsContainer.appendChild(postElement)
-      })
+      posts.forEach((post) => displayPost(post))
     } catch (error) {
       console.error('Error fetching posts:', error)
       alert('Error al cargar los posts. Por favor, inténtalo de nuevo.')
+    }
+  }
+
+  const deletePost = async (postId) => {
+    try {
+      const response = await fetch(`https://22309.arpanetos.lol/posts/${postId}`, {
+        method: 'DELETE',
+      })
+
+      if (!response.ok) {
+        throw new Error('El post no pudo ser eliminado.')
+      }
+
+      loadPosts()
+    } catch (error) {
+      console.error('Error deleting post:', error)
+      alert('Error al eliminar el post. Por favor, inténtalo de nuevo.')
     }
   }
 
@@ -80,11 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('Error en la búsqueda del post.')
       }
 
-      const posts = await response.json()
-
-      posts.forEach((post) => {
-        displayPost(post)
-      })
+      const post = await response.json()
+      displayPost(post)
     } catch (error) {
       console.error('Error fetching post:', error)
       alert('Error al buscar el post. Por favor, inténtalo de nuevo.')
@@ -98,19 +93,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 })
-
-async function deletePost(postId) {
-  try {
-    const response = await fetch(`https://22309.arpanetos.lol/posts/${postId}`, {
-      method: 'DELETE',
-    })
-
-    if (response.ok) {
-      location.reload()
-    } else {
-      throw new Error('El post no pudo ser eliminado.')
-    }
-  } catch (error) {
-
-  }
-}
