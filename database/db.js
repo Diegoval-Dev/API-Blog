@@ -1,4 +1,4 @@
-import conn from './conn'
+import conn from './conn.js'
 
 export const getAllPosts = async () => {
   const [rows] = await conn.query('SELECT * FROM blog_posts')
