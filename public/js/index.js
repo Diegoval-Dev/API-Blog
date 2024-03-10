@@ -35,8 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       posts.forEach((post) => displayPost(post))
     } catch (error) {
-      console.error('Error fetching posts:', error)
-      alert('Error al cargar los posts. Por favor, inténtalo de nuevo.')
+      postsContainer.innerHTML = `<h2>Error cargando los posts: ${error.message}</h2>`
     }
   }
 
@@ -52,8 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       loadPosts()
     } catch (error) {
-      console.error('Error deleting post:', error)
-      alert('Error al eliminar el post. Por favor, inténtalo de nuevo.')
+      postsContainer.innerHTML = `<h2>Error error eliminando el post: ${error.message}</h2>`
     }
   }
 
@@ -72,8 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(`https://22309.arpanetos.lol/posts/${postId}`)
       if (!response.ok) {
         if (response.status === 404) {
-          alert('Post no encontrado.')
-          return
+          postsContainer.innerHTML = '<h2>Error, post no encontrado</h2>'
         }
         throw new Error('Error en la búsqueda del post.')
       }
@@ -81,8 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const post = await response.json()
       displayPost(post)
     } catch (error) {
-      console.error('Error fetching post:', error)
-      alert('Error al buscar el post. Por favor, inténtalo de nuevo.')
+      postsContainer.innerHTML = `<h2>Error cargando los posts: ${error.message}</h2>`
     }
   })
 

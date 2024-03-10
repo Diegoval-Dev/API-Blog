@@ -3,10 +3,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search)
   const postId = urlParams.get('postId')
 
+  async function loadPostData() {
+    try {
+      const response = await fetch(`https://22309.arpanetos.lol/posts/${postId}`)
+      const posts = await response.json()
+      posts.forEach((post) => {
+        document.getElementById('input-title').value = post.title
+        document.getElementById('input-image').value = post.banner_image_url
+        document.getElementById('input-category').value = post.category
+        document.getElementById('input-content').value = post.content
+      })
+    } catch (error) {
+      form.innerHTML = `<h2>Error creando el post: ${error.message}</h2>`
+    }
+  }
+
   if (postId) {
     loadPostData(postId)
   } else {
-    console.error('No se proporcionó el ID del post.')
+    form.innerHTML = '<h2>Error cargando el post</h2>'
   }
 
   form.addEventListener('submit', async (e) => {
@@ -29,30 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
       })
 
       if (response.ok) {
-        alert('Post actualizado exitosamente!')
         window.location.href = '../index.html'
       } else {
         throw new Error('Error actualizando el post')
       }
     } catch (error) {
-      console.error('Error:', error)
-      alert('Error al actualizar el post. Por favor, inténtalo de nuevo.')
+      form.innerHTML = `<h2>Error creando el post: ${error.message}</h2>`
     }
   })
 })
-
-async function loadPostData(postId) {
-  try {
-    const response = await fetch(`https://22309.arpanetos.lol/posts/${postId}`)
-    const posts = await response.json()
-
-    posts.forEach((post) => {
-      document.getElementById('input-title').value = post.title
-      document.getElementById('input-image').value = post.banner_image_url
-      document.getElementById('input-category').value = post.category
-      document.getElementById('input-content').value = post.content
-    })
-  } catch (error) {
-    console.error('Error cargando el post:', error)
-  }
-}

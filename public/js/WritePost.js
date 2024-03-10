@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault()
 
     const title = document.getElementById('input-title').value
-    const banner_image_url = document.getElementById('input-image').value
+    const bannerImageB64 = document.getElementById('input-image').value
     const category = document.getElementById('input-category').value
     const content = document.getElementById('input-content').value
 
     const post = {
-      title, content, banner_image_url, category,
+      title, content, bannerImageB64, category,
     }
 
     try {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(errorText)
       }
     } catch (error) {
-      console.error('Error writing post:', error)
+      form.innerHTML = `<h2>Error creando el post: ${error.message}</h2>`
     }
   })
 })
