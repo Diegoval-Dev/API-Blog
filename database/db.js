@@ -1,12 +1,12 @@
-import conn from './conn.js'
+import conn from './conn'
 
 export const getAllPosts = async () => {
   const [rows] = await conn.query('SELECT * FROM blog_posts')
   return rows
 }
 
-export const createPost = async (title, content, bannerImageUrl, category) => {
-  const [result] = await conn.query('INSERT INTO blog_posts (title, content, banner_image_url, category) VALUES (?, ?, ?, ?)', [title, content, bannerImageUrl, category])
+export const createPost = async (title, content, bannerImage, category) => {
+  const [result] = await conn.query('INSERT INTO blog_posts (title, content, bannerImageB64, category) VALUES (?, ?, ?, ?)', [title, content, bannerImage, category])
   return result
 }
 
@@ -15,8 +15,8 @@ export const getPostById = async (id) => {
   return rows
 }
 
-export const updatePostById = async (id, title, content, bannerImageUrl, category) => {
-  const [result] = await conn.query('UPDATE blog_posts SET title = ?, content = ?, banner_image_url = ?, category = ? WHERE id = ?', [title, content, bannerImageUrl, category, id])
+export const updatePostById = async (id, title, content, bannerImage, category) => {
+  const [result] = await conn.query('UPDATE blog_posts SET title = ?, content = ?, bannerImageB64 = ?, category = ? WHERE id = ?', [title, content, bannerImage, category, id])
   return result
 }
 

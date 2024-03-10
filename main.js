@@ -1,9 +1,10 @@
-import express from 'express';
-import { getAllPosts, createPost, getPostById, updatePostById, deletePostById } from './database/db.js';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import {logDetails} from './middlewares/loggingMiddleware.js';
-import cors from 'cors';
+import express from 'express'
+import { getAllPosts, createPost, getPostById, updatePostById, deletePostById } from './database/db'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+import {logDetails} from './middlewares/loggingMiddleware'
+import cors from 'cors'
+import isValidBase64 from './helpers/imageValidator'
 
 
 
@@ -41,12 +42,15 @@ app.get('/posts', async (req, res) => {
 
 // POST /posts
 app.post('/posts', async (req, res) => {
-    const { title, content, banner_image_url, category } = req.body;
-    if (!title || !content || !banner_image_url || !category) {
-        return res.status(400).send("Missing or malformed data on the bodysuit");
+    const { title, content, bannerImageB64, category } = req.body;
+    if (!title || !content || !banner_image_base64 || !category) {
+        return res.status(400).send("Missing or malformed data in the body");
+    }
+    if (!isValidBase64(banner_image_base64)) {
+        return res.status(400).send("Image is not in Base64 format");
     }
     try {
-        const result = await createPost(title, content, banner_image_url, category);
+        const result = await createPost(title, content, bannerImageB64, category);
         res.status(200).json(result);
     } catch (error) {
         console.error('Error creating post:', error);
@@ -73,14 +77,16 @@ app.get('/posts/:postId', async (req, res) => {
 // PUT /posts/:id
 app.put('/posts/:postId', async (req, res) => {
     const { postId } = req.params;
-    const { title, content, banner_image_url, category } = req.body;
+    const { title, content, banner_image_base64, category } = req.body;
 
-    if (!title || !content || !banner_image_url || !category) {
+    if (!title || !content || !banner_image_base64 || !category) {
         return res.status(400).send("Missing or malformed data in the body");
     }
-
+    if (!isValidBase64(banner_image_base64)) {
+        return res.status(400).send("Image is not in Base64 format");
+    }
     try {
-        const result = await updatePostById(postId, title, content, banner_image_url, category);
+        const result = await updatePostById(postId, title, content, banner_image_base64, category);
         if (result.affectedRows === 0) {
             return res.status(404).send("Post not found");
         }
