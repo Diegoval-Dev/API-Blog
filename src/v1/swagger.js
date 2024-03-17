@@ -10,10 +10,10 @@ const options = {
       description: 'A simple Express API for a blog',
     },
     servers: [
-    {
-    url: 'http://localhost:3000',
-        },
-        ],
-    },
-    apis: ['./routes/*.js'],
+      {
+        url: 'http://localhost:3000',
+      },
+    ],
+  },
+  apis: ['./routes/*.js'],
 }
