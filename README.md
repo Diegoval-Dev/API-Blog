@@ -40,5 +40,5 @@ Para empezar a usar el blog, simplemente navega a http://localhost:3000 en tu na
 
 ## Autores
 
-- **Tu Nombre** - *Trabajo Inicial* - [Diegoval-Dev](https://github.com/Diegoval-Dev)
+- **Diego Valenzuela** - *Trabajo Inicial* - [Diegoval-Dev](https://github.com/Diegoval-Dev)
 
