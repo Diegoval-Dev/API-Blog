@@ -15,12 +15,15 @@ const getPostById = async (id) => {
   return rows
 }
 
-const updatePostById = async (id, title, content, bannerImage, category) => {
-  const [result] = await conn.query('UPDATE blog_posts SET title = ?, content = ?, bannerImageB64 = ?, category = ? WHERE id = ?', [title, content, bannerImage, category, id])
+const updatePost = async (id, title, content, bannerImage, category) => {
+  const [result] = await conn.query(
+    'UPDATE blog_posts SET title = ?, content = ?, bannerImageB64 = ?, category = ? WHERE id = ?',
+    [title, content, bannerImage, category, id],
+  )
   return result
 }
 
-const deletePostById = async (id) => {
+const deletePost = async (id) => {
   const [result] = await conn.query('DELETE FROM blog_posts WHERE id = ?', [id])
   return result
 }
@@ -29,6 +32,6 @@ export default {
   getAllPosts,
   createPost,
   getPostById,
-  updatePostById,
-  deletePostById,
+  updatePost,
+  deletePost,
 }

@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { body, param } from 'express-validator'
+import { body } from 'express-validator'
 
 const postValidation = {
   createNewPost: [
@@ -20,10 +20,6 @@ const postValidation = {
       .matches(/^data:image\/[a-zA-Z]+;base64,[A-Za-z0-9+/]+={0,2}$/)
       .withMessage('The image is not in base64 format'),
     body('category').isString().notEmpty(),
-    param('postId').isInt().withMessage('Post ID must be an integer'),
-  ],
-  getPostById: [
-    param('postId').isInt().withMessage('Post ID must be an integer'),
   ],
 }
 

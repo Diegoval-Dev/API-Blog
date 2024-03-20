@@ -1,27 +1,21 @@
 import postService from '../services/postService.js'
-import validationResult from './validators.js'
 
-const getAllPosts = (req, res) => {
+const getAllPosts = async (req, res) => {
   try {
-    const allPosts = postService.getAllPosts()
+    const allPosts = await postService.getAllPosts()
     res.status(200).json(allPosts)
   } catch (error) {
     res.status(500).send('An error occurred while fetching posts')
   }
 }
 
-const getPostById = (req, res) => {
-  const { postId } = req.params
-
-  const { errors } = validationResult.getPostById(req)
-  if (errors.length > 0) {
-    return res.status(400).json({ errors })
-  }
-
+// eslint-disable-next-line consistent-return
+const getPostById = async (req, res) => {
+  const postId = req.params.id
   try {
-    const post = postService.getPostById(postId)
+    const post = await postService.getPostById(postId)
     if (post.length > 0) {
-      res.satus(200).json(post)
+      res.status(200).json(post[0])
     } else {
       res.status(404).send('Post not found')
     }
@@ -31,52 +25,38 @@ const getPostById = (req, res) => {
 }
 
 // eslint-disable-next-line consistent-return
-const createNewPost = (req, res) => {
-  const { body } = req.body
-
-  const { errors } = validationResult.createNewPost(req)
-  if (errors.length > 0) {
-    return res.status(400).json({ errors })
-  }
-
+const createNewPost = async (req, res) => {
   const newPost = {
-    title: body.title,
-    content: body.content,
-    bannerImageB64: body.bannerImageB64,
-    category: body.category,
+    title: req.body.title,
+    content: req.body.content,
+    bannerImageB64: req.body.bannerImageB64,
+    category: req.body.category,
   }
   try {
-    const createdPost = postService.createNewPost(newPost)
-    res.status(200).json(createdPost)
+    const createdPostResult = await postService.createNewPost(newPost)
+    const postCreated = await postService.getPostById(createdPostResult.insertId)
+    res.status(200).json(postCreated[0])
   } catch (error) {
     res.status(500).send('An error occurred while creating the post')
   }
 }
 
 // eslint-disable-next-line consistent-return
-const updatePost = (req, res) => {
-  const { body } = req.body
-  const { postId } = req.params
-
-  const { errors } = validationResult.updatePost(req)
-
-  if (errors.length > 0) {
-    return res.status(400).json({ errors })
-  }
-
+const updatePost = async (req, res) => {
+  const { ...body } = req.body
+  const postId = req.params.id
   const postToUpdate = {
     title: body.title,
     content: body.content,
     bannerImageB64: body.bannerImageB64,
     category: body.category,
   }
-
   try {
-    const postUpdateResult = postService.updatePost(postId, postToUpdate)
+    const postUpdateResult = await postService.updatePost(postId, postToUpdate)
     if (postUpdateResult.affectedRows === 0) {
       return res.status(404).send('Post not found')
     }
-    const updatedPost = postService.getPostById(postId)
+    const updatedPost = await postService.getPostById(postId)
     res.status(200).json(updatedPost[0])
   } catch (error) {
     res.status(500).send('An error occurred while updating the post')
@@ -85,15 +65,10 @@ const updatePost = (req, res) => {
 
 // eslint-disable-next-line consistent-return
 const deletePost = async (req, res) => {
-  const { postId } = req.params
-
-  const { errors } = validationResult.getPostById(req)
-  if (errors.length > 0) {
-    return res.status(400).json({ errors })
-  }
+  const { ...postId } = req.params
 
   try {
-    const deletePostresult = postService.deletePost(postId)
+    const deletePostresult = await postService.deletePost(postId.id)
     if (deletePostresult.affectedRows > 0) {
       res.status(204).send('Post deleted successfully')
     } else {

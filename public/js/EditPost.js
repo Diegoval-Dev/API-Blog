@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadPostData() {
     try {
-      const response = await fetch(`https://22309.arpanetos.lol/posts/${postId}`)
+      const response = await fetch(`http://127.0.0.1:22309/posts/${postId}`)
       const posts = await response.json()
       posts.forEach((post) => {
         document.getElementById('input-title').value = post.title
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch(`https://22309.arpanetos.lol/posts/${postId}`, {
+      const response = await fetch(`http://127.0.0.1:22309/posts/${postId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

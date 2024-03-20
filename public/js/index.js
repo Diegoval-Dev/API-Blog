@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const loadPosts = async () => {
     try {
-      const response = await fetch('https://22309.arpanetos.lol/posts')
+      const response = await fetch('http://127.0.0.1:22309/posts')
       let posts = await response.json()
 
       posts = posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const deletePost = async (postId) => {
     try {
-      const response = await fetch(`https://22309.arpanetos.lol/posts/${postId}`, {
+      const response = await fetch(`http://127.0.0.1:22309/posts/${postId}`, {
         method: 'DELETE',
       })
 
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch(`https://22309.arpanetos.lol/posts/${postId}`)
+      const response = await fetch(`http://127.0.0.1:22309/posts/${postId}`)
       if (!response.ok) {
         if (response.status === 404) {
           postsContainer.innerHTML = '<h2>Error, post no encontrado</h2>'
