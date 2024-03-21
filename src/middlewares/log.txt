@@ -139,3 +139,15 @@
 2024-03-20T17:25:36.390Z - Request to /2, Payload: {}, Response: {"id":2,"title":"Mi Nuevo Post 1","content":"Este es el contenido de mi nuevo post.","bannerImageB64":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA","category":"Tecnología","created_at":"2024-03-20T17:25:29.000Z"}
 2024-03-20T17:25:42.031Z - Request to /2, Payload: {"title":"Mi Nuevo Post Actualizado","content":"Este es el contenido de mi nuevo post.","bannerImageB64":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA","category":"Tecnología"}, Response: {"id":2,"title":"Mi Nuevo Post Actualizado","content":"Este es el contenido de mi nuevo post.","bannerImageB64":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA","category":"Tecnología","created_at":"2024-03-20T17:25:29.000Z"}
 2024-03-20T17:25:51.838Z - Request to /2, Payload: {}, Response: Post deleted successfully
+2024-03-21T15:39:00.942Z - Request to /2, Payload: {}, Response: Post not found
+2024-03-21T15:39:02.316Z - Request to /favicon.ico, Payload: {}, Response: 404 Not Found
+2024-03-21T15:39:04.980Z - Request to /, Payload: {}, Response: []
+2024-03-21T15:39:45.866Z - Request to /, Payload: {}, Response: Error serving index.html
+2024-03-21T15:42:43.342Z - Request to /css/index.css, Payload: {}, Response: 404 Not Found
+2024-03-21T15:42:43.525Z - Request to /css/navbar.css, Payload: {}, Response: 404 Not Found
+2024-03-21T15:42:43.554Z - Request to /css/footer.css, Payload: {}, Response: 404 Not Found
+2024-03-21T15:42:43.551Z - Request to /js/index.js, Payload: {}, Response: 404 Not Found
+2024-03-21T15:47:37.361Z - Request to /posts, Payload: {}, Response: 404 Not Found
+2024-03-21T15:48:05.512Z - Request to /, Payload: {}, Response: []
+2024-03-21T15:48:19.961Z - Request to /posts, Payload: {}, Response: 404 Not Found
+2024-03-21T15:48:40.351Z - Request to /, Payload: {}, Response: []

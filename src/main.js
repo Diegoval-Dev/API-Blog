@@ -15,8 +15,10 @@ app.use(cors())
 app.use(express.json())
 app.use('/api/v1/posts', v1PostRouter)
 
+app.use(express.static(join(myDirname, '../public')))
+
 app.get('/', (req, res) => {
-  res.sendFile(join(myDirname, 'public', 'index.html'), (err) => {
+  res.sendFile(join(myDirname, '../public', 'index.html'), (err) => {
     if (err) {
       res.status(500).send('Error serving index.html')
     }
