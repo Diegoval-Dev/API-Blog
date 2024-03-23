@@ -6,7 +6,7 @@ const getAllPosts = async () => {
 }
 const getPostById = async (idPost) => {
   const post = await db.getPostById(idPost)
-  return post
+  return post[0]
 }
 const createNewPost = async (newPost) => {
   const post = {

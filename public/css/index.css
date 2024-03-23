@@ -12,10 +12,12 @@ body{
 main{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 20px 10%;
     background-color: var(--rich-black);
+    color: var(--white);
+    height: 82vh;
 }
 main h2{
     align-self: flex-start;

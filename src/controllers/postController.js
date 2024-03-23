@@ -3,7 +3,11 @@ import postService from '../services/postService.js'
 const getAllPosts = async (req, res) => {
   try {
     const allPosts = await postService.getAllPosts()
-    res.status(200).json(allPosts)
+    const response = {
+      status: 'OK',
+      data: allPosts,
+    }
+    res.status(201).json(response)
   } catch (error) {
     res.status(500).send('An error occurred while fetching posts')
   }
@@ -14,8 +18,8 @@ const getPostById = async (req, res) => {
   const postId = req.params.id
   try {
     const post = await postService.getPostById(postId)
-    if (post.length > 0) {
-      res.status(200).json(post[0])
+    if (post) {
+      res.status(200).json(post)
     } else {
       res.status(404).send('Post not found')
     }
@@ -35,7 +39,13 @@ const createNewPost = async (req, res) => {
   try {
     const createdPostResult = await postService.createNewPost(newPost)
     const postCreated = await postService.getPostById(createdPostResult.insertId)
-    res.status(200).json(postCreated[0])
+    if (postCreated) {
+      const postUrl = ` ${req.protocol}://${req.get('host')}/api/v1/posts/${postCreated.id} `
+      res.setHeader('Location', postUrl)
+      res.status(200).json(postCreated)
+    } else {
+      res.status(404).send('Post created but not found')
+    }
   } catch (error) {
     res.status(500).send('An error occurred while creating the post')
   }
@@ -57,7 +67,13 @@ const updatePost = async (req, res) => {
       return res.status(404).send('Post not found')
     }
     const updatedPost = await postService.getPostById(postId)
-    res.status(200).json(updatedPost[0])
+    if (updatedPost) {
+      const postUrl = ` ${req.protocol}://${req.get('host')}/api/v1/posts/${updatedPost.id} `
+      res.setHeader('Location', postUrl)
+      res.status(201).json(updatedPost)
+    } else {
+      res.status(404).send('Post created but not found')
+    }
   } catch (error) {
     res.status(500).send('An error occurred while updating the post')
   }
@@ -65,10 +81,10 @@ const updatePost = async (req, res) => {
 
 // eslint-disable-next-line consistent-return
 const deletePost = async (req, res) => {
-  const { ...postId } = req.params
+  const postId = req.params.id
 
   try {
-    const deletePostresult = await postService.deletePost(postId.id)
+    const deletePostresult = await postService.deletePost(postId)
     if (deletePostresult.affectedRows > 0) {
       res.status(204).send('Post deleted successfully')
     } else {
