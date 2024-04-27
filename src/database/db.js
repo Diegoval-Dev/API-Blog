@@ -28,10 +28,28 @@ const deletePost = async (id) => {
   return result
 }
 
+const createUser = async (username, password) => {
+  const [result] = await conn.query(
+    'INSERT INTO users (username, password) VALUES (?, ?)',
+    [username, password],
+  )
+  return result
+}
+
+const getUserByUsername = async (username) => {
+  const [result] = await conn.query(
+    'SELECT * FROM users WHERE username = ?',
+    [username],
+  )
+  return result[0]
+}
+
 export default {
   getAllPosts,
   createPost,
   getPostById,
   updatePost,
   deletePost,
+  createUser,
+  getUserByUsername,
 }

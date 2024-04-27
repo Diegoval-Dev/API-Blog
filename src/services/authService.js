@@ -4,18 +4,11 @@ import db from '../database/db.js'
 
 async function register(username, password) {
   const hashedPassword = await bcrypt.hash(password, 10)
-  const result = await db.query(
-    'INSERT INTO users (username, password) VALUES (?, ?)',
-    [username, hashedPassword],
-  )
-  return result
+  await db.createUser(username, hashedPassword)
 }
 
 async function login(username, password) {
-  const result = await db.query('SELECT * FROM users WHERE username = ?', [
-    username,
-  ])
-  const user = result[0]
+  const user = await db.getUserByUsername(username)
   if (user && (await bcrypt.compare(password, user.password))) {
     const accessToken = jwt.sign(
       { id: user.id },

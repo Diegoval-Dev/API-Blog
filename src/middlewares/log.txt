@@ -2955,3 +2955,12 @@ window.onload = function() {
 2024-03-23T18:51:33.743Z - Request to /11, Payload: {}, Response: Post deleted successfully
 2024-03-23T18:51:51.071Z - Request to /10, Payload: {}, Response: Post deleted successfully
 2024-03-23T19:08:28.622Z - Request to /docs, Payload: {}, Response: 404 Not Found
+2024-04-27T18:36:43.472Z - Request to /favicon.ico, Payload: {}, Response: 404 Not Found
+2024-04-27T18:36:42.185Z - Request to /, Payload: {}, Response: {"status":"OK","data":[]}
+2024-04-27T18:37:02.560Z - Request to /api/v1/auth/register, Payload: {}, Response: 404 Not Found
+2024-04-27T18:39:36.359Z - Request to /register, Payload: {"username":"admin","password":"admin"}, Response: db.query is not a function
+2024-04-27T18:51:55.399Z - Request to /register, Payload: {"username":"admin","password":"admin"}, Response: undefined
+2024-04-27T18:52:42.054Z - Request to /login, Payload: {"username":"admin","password":"admin"}, Response: secretOrPrivateKey must have a value
+2024-04-27T21:05:59.900Z - Request to /login, Payload: {"username":"admin","password":"admin"}, Response: Invalid login credentials
+2024-04-27T21:06:35.290Z - Request to /register, Payload: {"username":"admin","password":"admin"}, Response: undefined
+2024-04-27T21:06:41.593Z - Request to /login, Payload: {"username":"admin","password":"admin"}, Response: {"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE0MjUyMDAxfQ.v818Pbk_HHtdOVz9VUuoLCJFI2CnCUs86trHgYMMNGk"}
