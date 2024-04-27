@@ -7,7 +7,7 @@ const getAllPosts = async (req, res) => {
       status: 'OK',
       data: allPosts,
     }
-    res.status(201).json(response)
+    res.status(200).json(response)
   } catch (error) {
     res.status(500).send('An error occurred while fetching posts')
   }
@@ -42,7 +42,7 @@ const createNewPost = async (req, res) => {
     if (postCreated) {
       const postUrl = ` ${req.protocol}://${req.get('host')}/api/v1/posts/${postCreated.id} `
       res.setHeader('Location', postUrl)
-      res.status(200).json(postCreated)
+      res.status(201).json(postCreated)
     } else {
       res.status(404).send('Post created but not found')
     }

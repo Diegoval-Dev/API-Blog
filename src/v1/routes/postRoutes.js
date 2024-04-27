@@ -2,6 +2,7 @@ import express from 'express'
 import postValidation from '../../controllers/validators.js'
 import validationErrorHandler from '../../middlewares/validationErrorHandler.js'
 import postController from '../../controllers/postController.js'
+import authenticateToken from '../../middlewares/authenticateToken.js'
 
 const router = express.Router()
 
@@ -96,7 +97,7 @@ router.get('/:id', postController.getPostById)
  *             schema:
  *               $ref: '#/components/schemas/Post'
  */
-router.post('/', postValidation.createNewPost, validationErrorHandler, postController.createNewPost)
+router.post('/', authenticateToken, postValidation.createNewPost, validationErrorHandler, postController.createNewPost)
 
 /**
  * @openapi
@@ -143,7 +144,7 @@ router.post('/', postValidation.createNewPost, validationErrorHandler, postContr
  *       200:
  *         description: Post updated successfully.
  */
-router.put('/:id', postValidation.updatePost, validationErrorHandler, postController.updatePost)
+router.put('/:id', authenticateToken, postValidation.updatePost, validationErrorHandler, postController.updatePost)
 
 /**
  * @openapi
@@ -164,6 +165,6 @@ router.put('/:id', postValidation.updatePost, validationErrorHandler, postContro
  *       204:
  *         description: Post deleted successfully.
  */
-router.delete('/:id', postController.deletePost)
+router.delete('/:id', authenticateToken, postController.deletePost)
 
 export default router
